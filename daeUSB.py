@@ -1,21 +1,13 @@
+# -*- coding: utf-8 -*-
+#安装USB2COM驱动
 import pywinauto
 import pywintypes
-from pywinauto import *
-import win32gui
-import time
-from pywinauto.timings import Timings, WaitUntil, TimeoutError, WaitUntilPasses
-import win32process
-import win32event
-from threading import Thread
+from pywinauto import findwindows
 import os
-import time
 import _thread
 import traceback
 from threading import Thread,Event
 import time
-destdrive="C:"
-bakdrive="C:"
-program=None
 def runUSB():
     #cmd=r"start c:\9111\PCIS-DASK\PCIS-DASK.exe"
     cmd="start c:\\CS3000备份\\CDM21216_Setup.exe"
@@ -23,25 +15,21 @@ def runUSB():
 class Program(object):
     """example for AutoResetEvent"""
     def main(self):
-        _thread.start_new_thread(runUSB,())
+        _thread.start_new_thread(runUSB,())#start program
         wind=EastWind(self.mre)
         wind.start()
-        self.mre.wait()
-        print("got wind")
-        # self.mre.clear() 
-        # self.mre.wait()
-        # print("got wind")
+        self.mre.wait()#wait install finish
     def __init__(self):
         super(Program, self).__init__()
-        self.mre=Event()#False)
+        self.mre=Event()
 class EastWind(Thread):
     """dmretring for EastWind"""
     def __init__(self, mreV):
         super(EastWind, self).__init__()
         self.mre=mreV
     def run(self):
-        find3000()
-        self.mre.set()
+        lookupWindow()#installing
+        self.mre.set()#install finish
 def treatadlink(h):
     try:
         d=pywinauto.controls.hwndwrapper.DialogWrapper(h)
@@ -63,6 +51,7 @@ def treatadlink(h):
                 c.set_focus()
                 c.click_input() 
     except pywintypes.error as e:
+        print(e)
         pass
     return True
 def treatQudong(h):
@@ -86,9 +75,10 @@ def treatQudong(h):
             #     c.set_focus()
             #     c.click_input() 
     except pywintypes.error as e:
+        print(e)
         pass
     return True    
-def find3000():
+def lookupWindow():
     idle=0
     while(True):
         print("=================")
@@ -108,34 +98,17 @@ def find3000():
                             if treatQudong(win):
                                 idle=0
                 except UnicodeEncodeError as e:
+                    print(e)
                     pass
-            time.sleep(1)
+            time.sleep(1)#每秒检查一次
             idle+=1
-            if idle>5 :
-                if not nextCmd():
-                    break
-                else:
-                    idle=-10
-            if idle>20:
+            if idle>5 :#连续五秒没有查找到窗口则退出
                 break
         except:
             traceback.print_exc()
             a=input("except")
-            
-def nextCmd():
-    return False
-def run():
-    #cmd=r"start c:\9111\PCIS-DASK\PCIS-DASK.exe"
-    cmd="start "+bakdrive+"\\9111\\PCIS-DASK\\PCIS-DASK.exe"
-    os.system(cmd)            
-# class EastWind(Thread):
-#     def __init__(self):
-#         Thread.__init__(self)
-#     def run(self):
-#         find3000()
 def main():
-    global program
     program=Program()
     program.main()
 if __name__=="__main__":
-    find3000()
+    lookupWindow()
