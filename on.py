@@ -13,7 +13,7 @@ import traceback
 destdrive="C:"
 bakdrive="C:"
 #cspath = r'c:\Program Files\NCS\CS3000\NCS.exe'
-cspath = destdrive+r'\Program Files (X86)\NCS\CS3000\NCS.exe'
+cspath = 'C:\\Users\\ncs\\Desktop\\CS3000_1.6.18\\NCS.exe'
 #cspath= r"D:\Documents and Settings\ncs\桌面\CS3000 1.6.19\NCS.exe"
 #onhpath = r'c:\Program Files\NCS\ONH3000\NCS.exe'
 onhpath = destdrive+ r'\Program Files (X86)\NCS\ONH3000\NCS.exe'

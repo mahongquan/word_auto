@@ -5,6 +5,10 @@ import reg
 import copyfile
 import re
 import getpath
+import on
+import daeUSB
+import mklink
+
 destdrive="C:"
 bakdrive="C:"
 def mylistdir(p,f):
@@ -27,38 +31,6 @@ def myfind(l,p):
            lr.append(a)
        #print "append"
     return lr
-
-def first():
-    global iscs
-    import reg
-    import dae
-    copyfile.main(isonh)
-    if isonh:
-        try:
-            dae.main(isonh)
-        except:
-            traceback.print_exc()
-            a=input("error ")
-def third():
-    import pci
-    try:
-        pci.main()
-    except:
-        #a=input("except")
-        traceback.print_exc()
-        #traceback.print_stack()
-        a=input("error ")
-def last():
-    import reg
-    import on
-    try:
-        reg.main()
-        on.main()
-    except:
-        #a=input("except")
-        traceback.print_exc()
-        #traceback.print_stack()
-        a=input("error ")
 def getbh():
     rundir=os.path.abspath(os.curdir)
     bh=rundir.split("\\")[-1]
@@ -87,14 +59,30 @@ def installcs():
         pass
     else:
         os.system(cmd)            
-    regcs()
+def installDriver():
+    try:
+        daeUSB.main()
+    except:
+        traceback.print_exc()
+        a=input("error ")
 def main():
+    # regcs()
+    mklink.main()
+    return
     if (os.path.exists(destdrive+r"\CS3000备份")):
         #if os.path.exists(r"C:\ADLINK\PCIS-DASK"):
         #    third()
+        installDriver()
         installcs()
+        mklink.main()
+        regcs()
+        on.main()#start ncs.exe
     else:
-        copyfile.main(isonh)#copy 
-        installcs()    
+        copyfile.main(False)#copy 
+        installDriver()
+        installcs()  
+        mklink.main()  
+        regcs()
+        on.main()#start ncs.exe
 if __name__=="__main__":
     main()
