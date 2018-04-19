@@ -1,0 +1,1 @@
+D:\Python36-32\Scripts\pyinstaller install_auto.py
