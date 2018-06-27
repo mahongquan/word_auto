@@ -27,7 +27,7 @@ def mklink(lnkname,filename):#如无需特别设置图标，则可去掉iconname
 #     shortcut.save()
 def main():
     print("mklink")
-    mklink("C:\\Users\\ncs\\Desktop\\CS3000.lnk","C:\\Users\\ncs\\Desktop\\CS3000_1.6.18\\NCS.exe")
+    mklink("C:\\Users\\ncs\\Desktop\\CS3000.lnk","C:\\Users\\ncs\\Desktop\\CS3000_1.7.0\\NCS.exe")
     # #获取"启动"文件夹路径，关键是最后的参数CSIDL_STARTUP，这些参数可以在微软的官方API中找到  
     # startup_path = shell.SHGetPathFromIDList(shell.SHGetSpecialFolderLocation(0,shellcon.CSIDL_STARTUP))  
     # #获取"桌面"文件夹路径，将最后的参数换成CSIDL_DESKTOP即可  

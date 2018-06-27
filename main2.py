@@ -1,38 +1,28 @@
 ﻿# -*- coding: utf-8 -*-
-import reg
-import installcs
-import installonh
+#import docx_write
+import packXml
+import pickle
+import os
+def getold():
+	if os.path.exists("start.pickle"):
+		old=open("start.pickle","rb").read()
+		start=pickle.loads(old)
+		return start
+	else:
+		return None
 def main():
-    isonh=reg.ison()
-    if isonh:
-        installonh.main()
-    else:
-        installcs.main()
-# def symlink(source, link_name):
-#     '''symlink(source, link_name)
-#        Creates a symbolic link pointing to source named link_name'''
-#     import ctypes
-#     csl = ctypes.windll.kernel32.CreateSymbolicLinkW
-#     csl.argtypes = (ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32)
-#     csl.restype = ctypes.c_ubyte
-#     flags = 0
-#     if source is not None and os.path.isdir(source):
-#         flags = 1
-#     if csl(link_name, source, flags) == 0:
-#         raise ctypes.WinError()
-# def symlink2():
-#     import ctypes
-#     kdll = ctypes.windll.LoadLibrary("kernel32.dll")
-#     kdll.CreateSymbolicLinkA("main2.py", "main2.link.py", 0)
-# def symlink3():
-#     import win32file
-#     win32file.CreateSymbolicLinkW(U"main2.py",U"main2.link.py", 1)
-# def symlink4():
-#     from subprocess import call
-#     call(['mklink', 'main2.link.py', 'main2.py'], shell=True)
-# def testlink():
-#     #symlink("main2.py","main2.py.link")
-#     symlink4()
+	start_old=getold()
+	if start_old!=None:
+		print("上次打印到"+str(start_old)+"号,直接回车接着上次打印")
+	else:
+		start_old=1
+	start=input("开始号码：")
+	try:
+		start=int(start)
+	except ValueError as e:
+		start=start_old
+	print(start)
+	packXml.getPeizhi(start,"横向收据模板.xml")#xml 2003 file
 if __name__=="__main__":
     main()
     #testlink()

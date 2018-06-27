@@ -2,7 +2,7 @@
 #安装USB2COM驱动
 import pywinauto
 import pywintypes
-from pywinauto import findwindows
+from pywinauto import findwindows,handleprops
 import os
 import _thread
 import traceback
@@ -53,6 +53,9 @@ def treatadlink(h):
     except pywintypes.error as e:
         print(e)
         pass
+    except TypeError as e:
+        print(e)
+
     return True
 def treatQudong(h):
     try:
@@ -62,12 +65,13 @@ def treatQudong(h):
         d.set_focus()
         for c in cs:
             bt=c.window_text()
-            if c.class_name()=="Button" and  "我接受" in bt:
-                c.set_focus()
-                c.click_input()            
-            if c.class_name()=="Button" and "下一步" in bt:
-                c.set_focus()
-                c.click_input()   
+            if(bt!=None):
+                if c.class_name()=="Button" and  "我接受" in bt:
+                    c.set_focus()
+                    c.click_input()            
+                if c.class_name()=="Button" and "下一步" in bt:
+                    c.set_focus()
+                    c.click_input()   
             # if c.class_name()=="Button" and "完成" in bt:
             #     c.set_focus()
             #     c.click_input()            

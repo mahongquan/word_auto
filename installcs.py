@@ -1,7 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 import traceback
 import os
-import reg
 import copyfile
 import re
 import getpath
@@ -39,23 +38,23 @@ def regcs():
     curpath=getpath.getpath()
     hm=getbh()
     hm=hm[-8:]
-    fs=mylistdir("../CS","*.ini")
-    fn="..\\CS"
-    #cmd='xcopy /s /Y  %s "c:\\Program Files\\NCS\\CS3000\\CS\\"' % fn
-    cmd='xcopy /s /Y  %s "C:\\Users\\ncs\\Desktop\\CS3000_1.6.18\\"' % (fn)
-    print(cmd)
-    os.system(cmd)
+    # fs=mylistdir("../CS","*.ini")
+    # fn="..\\CS"
+    # #cmd='xcopy /s /Y  %s "c:\\Program Files\\NCS\\CS3000\\CS\\"' % fn
+    # cmd='xcopy /s /Y  %s "C:\\Users\\ncs\\Desktop\\CS3000_1.7.0\\"' % (fn)
+    # print(cmd)
+    # os.system(cmd)
     cmd=curpath+"\\LicenseManager.exe %s 80" % hm
     print(cmd)
     os.system(cmd)
     #cmd='xcopy /Y sfx.db3 "c:\\Program Files\\NCS\\CS3000\\"'
-    cmd='xcopy /Y sfx.db3 "C:\\Users\\ncs\\Desktop\\CS3000_1.6.18\\"'
+    cmd='xcopy /Y sfx.db3 "C:\\Users\\ncs\\Desktop\\CS3000_1.7.0\\"'
     print(cmd)
     os.system(cmd)
 def installcs():
-    cmd='xcopy /s "C:\\CS3000备份\\CS3000_1.6.18" C:\\Users\\ncs\\Desktop\\CS3000_1.6.18\\'
+    cmd='xcopy /s "C:\\CS3000备份\\CS3000_1.7.0" C:\\Users\\ncs\\Desktop\\CS3000_1.7.0\\'
     print(cmd)
-    if os.path.exists("C:\\Users\\ncs\\Desktop\\CS3000_1.6.18"):
+    if os.path.exists("C:\\Users\\ncs\\Desktop\\CS3000_1.7.0"):
         pass
     else:
         os.system(cmd)            
@@ -67,8 +66,6 @@ def installDriver():
         a=input("error ")
 def main():
     # regcs()
-    mklink.main()
-    return
     if (os.path.exists(destdrive+r"\CS3000备份")):
         #if os.path.exists(r"C:\ADLINK\PCIS-DASK"):
         #    third()
